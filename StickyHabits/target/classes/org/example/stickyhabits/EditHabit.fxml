@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.stickyhabits.Controllers.EditHabitController"
+            prefHeight="400.0" prefWidth="600.0">
+    <Label> Add new habit</Label>
+    <TextField fx:id="habitNameField"  maxWidth="200" promptText="Enter habit name"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Update"  onAction="#updateHabit"/>
+        <Button fx:id="backButton" text="Cancel" onAction="#goToDashboard"/>
+    </HBox>
+    <Label fx:id="conf"></Label>
+
+
+</VBox>

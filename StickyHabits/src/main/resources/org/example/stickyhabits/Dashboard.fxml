@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="org.example.stickyhabits.Controllers.DashboardController"
+        prefHeight="400.0" prefWidth="600.0">
+
+    <top>
+        <ToolBar fx:id="toolbar">
+            <Button fx:id="addButton" text="Add Habit" onAction="#goToAdd" />
+            <Button fx:id="editButton" text="Edit Habit" onAction="#goToEdit" />
+            <Button text="Raporty" onAction="#openReportsWindow"/>
+            <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
+            <Button text="X" onAction="#goExit" />
+        </ToolBar>
+    </top>
+
+    <center>
+        <ListView maxWidth="300" fx:id="habitListView" />
+    </center>
+
+</BorderPane>
+
