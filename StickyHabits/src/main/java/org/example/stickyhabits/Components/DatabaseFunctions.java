@@ -102,6 +102,24 @@ public class DatabaseFunctions {
 
       return list;
    }
+   public void deleteHabit(Habit habit) {
+      String sql = "DELETE FROM habit WHERE id = ?";
+
+      try (Connection conn = DriverManager.getConnection(DB_URL)) {
+         // 🔥 Włącz obsługę kluczy obcych
+         try (Statement pragmaStmt = conn.createStatement()) {
+            pragmaStmt.execute("PRAGMA foreign_keys = ON");
+         }
+
+         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, habit.getId());
+            stmt.executeUpdate();
+         }
+
+      } catch (SQLException e) {
+         logError(e);
+      }
+   }
 
    public List<HabitHistory> getAllHabitHistory() {
       List<HabitHistory> list = new ArrayList<>();

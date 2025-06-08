@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.example.stickyhabits.Components.DatabaseFunctions;
 import org.example.stickyhabits.Components.Habit;
@@ -23,16 +24,27 @@ public class AddHabitController {
     private Label conf;
 private final DatabaseFunctions db = new DatabaseFunctions();
 
-    public void initialize() {
+    @FXML
+    public void initialize(){
+        habitNameField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    onAddHabit(); // metoda, która dodaje nawyk
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
 
     @FXML
-    protected void onAddHabit() {
+    protected void onAddHabit() throws IOException{
         Habit habit = new Habit(habitNameField.getText());
         db.add(habit);
         conf.setText("New habit added!!! Good luck!");
         habitNameField.clear();
+        goToDashboard();
     }
     @FXML
     public void goToDashboard() throws IOException {

@@ -43,6 +43,12 @@ private final DatabaseFunctions db = new DatabaseFunctions();
         conf.setText("Habit Updated!!! Good luck!");
     }
     @FXML
+    public void deleteHabit() throws IOException
+    {
+        db.deleteHabit(habit);
+        goToDashboard();
+    }
+    @FXML
     public void goToDashboard() throws IOException {
         System.out.println("backButton: " + backButton);
         Stage stage = (Stage) backButton.getScene().getWindow();///org/example/stickyhabits/

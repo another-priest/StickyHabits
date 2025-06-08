@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import org.example.stickyhabits.Components.DatabaseFunctions;
 import org.example.stickyhabits.Components.Habit;
@@ -32,6 +33,21 @@ public class ReportController {
         nameColumn.setCellValueFactory(data -> data.getValue().nameProperty());
         dateColumn.setCellValueFactory(data -> data.getValue().dateProperty());
         doneColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().doneProperty().get() ? "✓" : "✗"));
+        reportTable.setRowFactory(tableView -> new TableRow<>() {
+            @Override
+            protected void updateItem(HabitReportRow item, boolean empty) {
+                super.updateItem(item, empty);
 
+                if (empty || item == null) {
+                    setStyle(""); // reset stylu
+                } else {
+                    if (item.doneProperty().get()) {
+                        setStyle("-fx-background-color: #d4fcd4;"); // zielony dla wykonanych
+                    } else {
+                        setStyle("-fx-background-color: #fcd4d4;"); // czerwony dla niewykonanych
+                    }
+                }
+            }
+        });
     }
 }
