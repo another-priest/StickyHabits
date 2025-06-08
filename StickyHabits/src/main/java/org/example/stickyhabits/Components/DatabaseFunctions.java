@@ -106,7 +106,7 @@ public class DatabaseFunctions {
       String sql = "DELETE FROM habit WHERE id = ?";
 
       try (Connection conn = DriverManager.getConnection(DB_URL)) {
-         // 🔥 Włącz obsługę kluczy obcych
+        
          try (Statement pragmaStmt = conn.createStatement()) {
             pragmaStmt.execute("PRAGMA foreign_keys = ON");
          }
