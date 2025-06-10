@@ -142,7 +142,6 @@ public class DatabaseFunctions {
       } catch (SQLException e) {
          System.err.println("Database error: " + e.getMessage());
       }
-
       return list;
    }
    public ObservableList<String> getHabits() {
@@ -295,6 +294,8 @@ public class DatabaseFunctions {
       }
       return 0; // Jeśli coś poszło nie tak
    }
+
+
    private void logError(SQLException e) {
       System.err.println("Database error: " + e.getMessage());
    }
