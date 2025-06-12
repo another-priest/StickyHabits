@@ -10,6 +10,7 @@ import javafx.stage.StageStyle;
 import org.example.stickyhabits.Controllers.DashboardController;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import static javafx.application.Application.launch;
 

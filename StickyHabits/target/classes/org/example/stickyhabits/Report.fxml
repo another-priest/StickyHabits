@@ -16,17 +16,6 @@
     <center>
         <TabPane fx:id="tabPane">
             <tabs>
-                <Tab text="Lista wykonania">
-                    <VBox>
-                        <TableView fx:id="reportTable">
-                            <columns>
-                                <TableColumn fx:id="nameColumn" text="Habit Name"/>
-                                <TableColumn fx:id="dateColumn" text="Date"/>
-                                <TableColumn fx:id="doneColumn" text="Done"/>
-                            </columns>
-                        </TableView>
-                    </VBox>
-                </Tab>
                 <Tab text="Tygodniowy przegląd">
                     <VBox>
                         <TableView fx:id="weeklyTable">
@@ -38,6 +27,17 @@
                                 <TableColumn fx:id="fridayNameColumn" text="Friday"/>
                                 <TableColumn fx:id="saturdayNameColumn" text="Saturday"/>
                                 <TableColumn fx:id="sundayNameColumn" text="Sunday"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </Tab>
+                <Tab text="Pełna historia wykonania">
+                    <VBox>
+                        <TableView fx:id="reportTable">
+                            <columns>
+                                <TableColumn fx:id="nameColumn" text="Habit Name"/>
+                                <TableColumn fx:id="dateColumn" text="Date"/>
+                                <TableColumn fx:id="doneColumn" text="Done"/>
                             </columns>
                         </TableView>
                     </VBox>

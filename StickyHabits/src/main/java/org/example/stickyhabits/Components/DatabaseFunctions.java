@@ -281,7 +281,7 @@ public class DatabaseFunctions {
       return lastDates;
    }
    public int getHabitCountByName(String name) {
-      String sql = "SELECT COUNT(*) FROM habits WHERE name = ?";
+      String sql = "SELECT COUNT(*) FROM habit WHERE name = ?";
       try (Connection conn = DriverManager.getConnection(DB_URL);
            PreparedStatement stmt = conn.prepareStatement(sql)) {
          stmt.setString(1, name);

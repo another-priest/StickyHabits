@@ -2,9 +2,9 @@
     WALIDACJA DANYCH
  ✓  dodać usuwanie habitów
  ✓  kolorowanie raportu
-  ✓ dodawanie enterem
+ ✓  dodawanie enterem
     dodać raporty tygodniowe
-    ?uwagi przy habitach
+ ?  uwagi przy habitach
         08.06.2025
     WALIDACJA DANYCH
     dodać raporty tygodniowe
@@ -12,3 +12,9 @@
         10.06.2025
     in progress(10.06.2025) - dodać raporty tygodniowe
     problem z "zawijaniem się" danych
+
+    12.06.2025
+ Ø    WALIDACJA DANYCH
+    ?uwagi przy habitach
+ ✓  problem z "zawijaniem się" danych
+ ✓   dodać raporty tygodniowe
