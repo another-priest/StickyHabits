@@ -11,7 +11,8 @@ import java.util.Date;
 
 
 public class DatabaseFunctions {
-   private static final String DB_URL = "jdbc:sqlite:C:\\Users\\Admin\\Desktop\\studia\\4semestr\\StickyHabits\\HabitBase";
+   //C:\Users\Admin\IdeaProjects\StickyHabits\StickyHabits\HabitBase
+   private static final String DB_URL = "jdbc:sqlite:HabitBase";
    private final LocalDate today = LocalDate.now();
    public Habit getHabitByIdFull(String habitId) {
       String sql = "SELECT id, name FROM habit WHERE id = ?";
@@ -142,7 +143,6 @@ public class DatabaseFunctions {
       } catch (SQLException e) {
          System.err.println("Database error: " + e.getMessage());
       }
-
       return list;
    }
    public ObservableList<String> getHabits() {
@@ -282,7 +282,7 @@ public class DatabaseFunctions {
       return lastDates;
    }
    public int getHabitCountByName(String name) {
-      String sql = "SELECT COUNT(*) FROM habits WHERE name = ?";
+      String sql = "SELECT COUNT(*) FROM habit WHERE name = ?";
       try (Connection conn = DriverManager.getConnection(DB_URL);
            PreparedStatement stmt = conn.prepareStatement(sql)) {
          stmt.setString(1, name);
@@ -295,6 +295,8 @@ public class DatabaseFunctions {
       }
       return 0; // Jeśli coś poszło nie tak
    }
+
+
    private void logError(SQLException e) {
       System.err.println("Database error: " + e.getMessage());
    }

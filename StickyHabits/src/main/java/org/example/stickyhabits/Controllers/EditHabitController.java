@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.example.stickyhabits.Components.DataValidation;
 import org.example.stickyhabits.Components.DatabaseFunctions;
 import org.example.stickyhabits.Components.Habit;
 import org.example.stickyhabits.Components.HabitFormModel;
@@ -38,13 +39,19 @@ private final DatabaseFunctions db = new DatabaseFunctions();
     @FXML
     public void updateHabit()
     {
-        habit.setName(habitNameField.getText());
-        db.updateHabit(habit);
-        conf.setText("Habit Updated!!! Good luck!");
+        DataValidation validator = new DataValidation();
+        if(validator.validateName(habitNameField.getText())){
+            habit.setName(habitNameField.getText());
+            db.updateHabit(habit);
+            conf.setText("Habit Updated!!! Good luck!");
+        }
+
     }
     @FXML
     public void deleteHabit() throws IOException
     {
+
+
         db.deleteHabit(habit);
         goToDashboard();
     }
