@@ -11,7 +11,8 @@ import java.util.Date;
 
 
 public class DatabaseFunctions {
-   private static final String DB_URL = "jdbc:sqlite:C:\\Users\\Admin\\Desktop\\studia\\4semestr\\StickyHabits\\HabitBase";
+   //C:\Users\Admin\IdeaProjects\StickyHabits\StickyHabits\HabitBase
+   private static final String DB_URL = "jdbc:sqlite:HabitBase";
    private final LocalDate today = LocalDate.now();
    public Habit getHabitByIdFull(String habitId) {
       String sql = "SELECT id, name FROM habit WHERE id = ?";

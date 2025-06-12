@@ -39,8 +39,7 @@ public class ReportController {
 
     @FXML
     public void initialize() {
-
-
+        System.out.println("weeklyTable is " + (weeklyTable == null ? "NULL ❌" : "OK ✅"));
     showWeekHistory();
     showAllHistory();
     }
@@ -91,6 +90,7 @@ private void showWeekHistory(){
         }
     }
     TableColumn<WeeklyReportRow, String> nameCol = new TableColumn<>("Habit");
+
     nameCol.setCellValueFactory(data -> data.getValue().habitNameProperty());
     weeklyTable.getColumns().add(0, nameCol); // dodaje jako pierwszą
     weeklyData.addAll(rowMap.values());
@@ -116,6 +116,8 @@ private void showWeekHistory(){
     applyColorCellFactory(fridayNameColumn);
     applyColorCellFactory(saturdayNameColumn);
     applyColorCellFactory(sundayNameColumn);
+
+
 }
     private void applyColorCellFactory(TableColumn<WeeklyReportRow, String> column) {
         column.setCellFactory(col -> new TableCell<>() {
