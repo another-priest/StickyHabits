@@ -277,5 +277,4 @@ public class DatabaseFunctions {
    private void logError(SQLException e) {
       System.err.println("Database error: " + e.getMessage());
    }
-
 }
