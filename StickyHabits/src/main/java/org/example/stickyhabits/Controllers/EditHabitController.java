@@ -8,10 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.example.stickyhabits.Components.DataValidation;
-import org.example.stickyhabits.Components.DatabaseFunctions;
-import org.example.stickyhabits.Components.Habit;
-import org.example.stickyhabits.Components.HabitFormModel;
+import org.example.stickyhabits.Components.*;
 
 import java.io.IOException;
 
@@ -23,9 +20,13 @@ public class EditHabitController {
     @FXML
     private Label conf;
     private Habit habit;
-    //@FXML private TextField nameField;
 private final DatabaseFunctions db = new DatabaseFunctions();
     private final HabitFormModel formModel = new HabitFormModel();
+    private HabitAIService aiService;
+
+    public void setAiService(HabitAIService svc) {
+        this.aiService = svc;
+    }
 
     public void initialize() {
         habitNameField.textProperty().bindBidirectional(formModel.nameProperty());
@@ -57,9 +58,14 @@ private final DatabaseFunctions db = new DatabaseFunctions();
     }
     @FXML
     public void goToDashboard() throws IOException {
-        System.out.println("backButton: " + backButton);
-        Stage stage = (Stage) backButton.getScene().getWindow();///org/example/stickyhabits/
-        Parent root = FXMLLoader.load(getClass().getResource("/org/example/stickyhabits/Dashboard.fxml"));
+
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/org/example/stickyhabits/Dashboard.fxml"));
+        Parent root = loader.load();
+
+        DashboardController dash = loader.getController();
+        dash.setAiService(aiService);
         stage.setScene(new Scene(root));
         stage.show();
     }

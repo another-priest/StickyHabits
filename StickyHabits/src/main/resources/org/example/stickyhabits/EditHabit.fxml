@@ -9,8 +9,10 @@
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.stickyhabits.Controllers.EditHabitController"
-            prefHeight="400.0" prefWidth="600.0">
-    <Label> Add new habit</Label>
+            prefHeight="400.0" prefWidth="600.0"
+      alignment="CENTER">
+    <Label> Edit your habit</Label>
+    <Button text="Delete"  onAction="#deleteHabit"/>
     <TextField fx:id="habitNameField"  maxWidth="200" promptText="Enter habit name"/>
 
     <HBox spacing="10" alignment="CENTER">
