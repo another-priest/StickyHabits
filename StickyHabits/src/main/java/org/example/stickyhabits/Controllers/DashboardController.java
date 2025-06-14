@@ -1,5 +1,7 @@
 package org.example.stickyhabits.Controllers;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,11 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.example.stickyhabits.Components.DatabaseFunctions;
-import org.example.stickyhabits.Components.Habit;
-import org.example.stickyhabits.Components.HabitRowViewModel;
+import org.example.stickyhabits.Components.*;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.function.IntSupplier;
 
 public class DashboardController {
 
@@ -21,37 +24,31 @@ public class DashboardController {
     private ListView<HabitRowViewModel> habitListView;
     @FXML
     private ToolBar toolbar;
-    private DatabaseFunctions db = new DatabaseFunctions();
-public void initialize() {
+    private final DatabaseFunctions db = new DatabaseFunctions();
+    private HabitAIService aiService;
+    public void initialize() {
 
 
-    ObservableList<HabitRowViewModel> items = FXCollections.observableArrayList();
-    for (Habit habit : db.getHabitsWithTodayHistory()) {
-        items.add(new HabitRowViewModel(habit.getId(), habit.getName(), db.getHabitState(habit.getId())));
+
+
     }
-    habitListView.setItems(items);
-    habitListView.setCellFactory(list -> new ListCell<>() {
-        @Override
-        protected void updateItem(HabitRowViewModel item, boolean empty) {
-            super.updateItem(item, empty);
-
-            if (empty || item == null) {
-                setGraphic(null);
-            } else {
-                CheckBox checkBox = new CheckBox(item.getName());
-                checkBox.setSelected(item.isDone());
-
-                checkBox.selectedProperty().addListener((obs, oldVal, newVal) -> {
-                    item.setDone(newVal);
-                    db.updateHabitState(item.getHabitId(), newVal);
-                });
-
-                setGraphic(checkBox);
-            }
+    public void loadData() {
+        ObservableList<HabitRowViewModel> items = FXCollections.observableArrayList();
+        for (Habit h : db.getHabitsWithTodayHistory()) {
+            items.add(new HabitRowViewModel(h.getId(), h.getName(), db.getHabitState(h.getId())));
         }
-    });
-}
+        habitListView.setItems(items);
 
+        habitListView.setCellFactory(
+                lv -> new HabitCell(db, aiService.getRecommender()));
+
+    }
+
+
+    public void setAiService(HabitAIService svc) {
+        this.aiService = svc;
+        loadData();
+    }
     public ToolBar getToolbar() {
         return toolbar;
     }
@@ -59,8 +56,12 @@ public void initialize() {
     private Button addButton;
     @FXML
     public void goToAdd() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/stickyhabits/AddHabit.fxml"));
-        Parent root = loader.load();
+        FXMLLoader l = new FXMLLoader(
+                getClass().getResource("/org/example/stickyhabits/AddHabit.fxml"));
+        Parent root = l.load();
+
+        AddHabitController add = l.getController();
+        add.setAiService(aiService);
         Stage stage = (Stage) addButton.getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
@@ -68,15 +69,20 @@ public void initialize() {
     @FXML
     public void goToEdit() throws IOException {
         HabitRowViewModel selectedItem = habitListView.getSelectionModel().getSelectedItem();
+
         if (selectedItem == null) return;
 
-        Habit habit = db.getHabitByIdFull(selectedItem.getHabitId()); // ← potrzebna taka metoda
+        Habit habit = db.getHabitByIdFull(selectedItem.getHabitId());
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/stickyhabits/EditHabit.fxml"));
-        Parent root = loader.load();
 
-        EditHabitController controller = loader.getController();
+        FXMLLoader l = new FXMLLoader(
+                getClass().getResource("/org/example/stickyhabits/EditHabit.fxml"));
+        Parent root = l.load();
+
+
+        EditHabitController controller = l.getController();
         controller.setEditingHabit(habit);
+        controller.setAiService(aiService);
 
         Stage stage = (Stage) habitListView.getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -97,8 +103,8 @@ public void initialize() {
             Stage reportStage = new Stage();
             reportStage.setTitle("Raporty");
             reportStage.setScene(new Scene(root));
-            reportStage.initOwner(toolbar.getScene().getWindow()); // Ustawienie okna nadrzędnego
-            reportStage.initModality(Modality.WINDOW_MODAL); // lub NONE, jeśli nie chcesz modalnego
+            reportStage.initOwner(toolbar.getScene().getWindow());
+            reportStage.initModality(Modality.WINDOW_MODAL);
             reportStage.show();
 
         } catch (IOException e) {

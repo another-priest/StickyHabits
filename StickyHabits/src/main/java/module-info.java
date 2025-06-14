@@ -11,6 +11,10 @@ module org.example.stickyhabits {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires smile.core;
+    requires smile.base;
+    requires java.prefs;
+    //requires smile.data;
 
     opens org.example.stickyhabits to javafx.fxml;
     exports org.example.stickyhabits;

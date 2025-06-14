@@ -19,8 +19,7 @@ public class ReportController {
     private final DatabaseFunctions db = new DatabaseFunctions();
     @FXML
     private TableView<HabitReportRow> reportTable;
-   // @FXML
-    //private TableView <HabitReportRow> reportWeek;
+
 
     @FXML private TableColumn<HabitReportRow, String> nameColumn;
     @FXML private TableColumn<HabitReportRow, String> dateColumn;
@@ -39,7 +38,6 @@ public class ReportController {
 
     @FXML
     public void initialize() {
-        System.out.println("weeklyTable is " + (weeklyTable == null ? "NULL ❌" : "OK ✅"));
     showWeekHistory();
     showAllHistory();
     }
@@ -61,7 +59,7 @@ private void showAllHistory()
             super.updateItem(item, empty);
 
             if (empty || item == null) {
-                setStyle(""); // reset stylu
+                setStyle("");
             } else {
                 if (item.doneProperty().get()) {
                     setStyle("-fx-background-color: #d4fcd4;"); // zielony dla wykonanych
