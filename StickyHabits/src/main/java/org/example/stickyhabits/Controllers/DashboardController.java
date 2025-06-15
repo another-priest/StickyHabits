@@ -72,7 +72,7 @@ public class DashboardController {
 
         if (selectedItem == null) return;
 
-        Habit habit = db.getHabitByIdFull(selectedItem.getHabitId());
+        Habit habit = db.getHabitById(selectedItem.getHabitId());
 
 
         FXMLLoader l = new FXMLLoader(

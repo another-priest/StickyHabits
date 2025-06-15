@@ -14,22 +14,6 @@ import java.util.Date;
 public class DatabaseFunctions {
    private static final String DB_URL = "jdbc:sqlite:HabitBase";
    private final LocalDate today = LocalDate.now();
-   public Habit getHabitByIdFull(String habitId) {
-      String sql = "SELECT id, name FROM habit WHERE id = ?";
-      try (Connection conn = DriverManager.getConnection(DB_URL);
-           PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-         stmt.setString(1, habitId);
-         try (ResultSet rs = stmt.executeQuery()) {
-            if (rs.next()) {
-               return new Habit(rs.getString("id"), rs.getString("name"));
-            }
-         }
-      } catch (SQLException e) {
-         System.err.println("Database error: " + e.getMessage());
-      }
-      return null;
-   }
 
    public void add(Habit habit) {
       String sql = "INSERT INTO habit VALUES (?, ?)";
